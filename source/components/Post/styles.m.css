@@ -40,7 +40,7 @@
 
 	& time {
 		top: 35px;
-		color: var (--paletteColor5);
+		color: var(--paletteColor5);
 		font-size: 12px;
 	}
 
