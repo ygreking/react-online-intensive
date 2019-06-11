@@ -12,7 +12,7 @@ import Styles from './styles.m.css';
 export default class Post extends Component {
     static propTypes = {
         comment: PropTypes.string.isRequired,
-        created: PropTypes.number.isRequired,
+        created: PropTypes.object.isRequired,
     };
 
     render() {
@@ -26,7 +26,7 @@ export default class Post extends Component {
                         <a>
                             {context.currentUserFirstName} {context.currentUserLastName}
                         </a>
-                        <time>{moment.unix(created).format('MMMM D h:mm:ss a')}</time>
+                        <time>{moment(created).format('MMMM D h:mm:ss a')}</time>
                         <p>{comment}</p>
                     </section>
                 )}

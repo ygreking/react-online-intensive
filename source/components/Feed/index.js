@@ -1,5 +1,6 @@
 // Core
 import React, { Component } from 'react';
+import moment from 'moment';
 
 // Components
 import StatusBar from 'components/StatusBar';
@@ -9,18 +10,37 @@ import Spinner from 'components/Spinner';
 
 // Instruments
 import Styles from './styles.m.css';
+import { getUniqueID } from 'instruments';
 
 export default class Feed extends Component {
+    constructor() {
+        super();
+
+        this._createPost = this._createPost.bind(this);
+    }
+
     state = {
         posts: [
-            { id: '123', comment: 'Hi there!', created: 1560184188 },
-            { id: '456', comment: 'Здарова!', created: 1560184409 },
+            { id: '123', comment: 'Hi there!', created: moment.utc() },
+            { id: '456', comment: 'Здарова!', created: moment.utc() },
         ],
-        busy: true,
+        isPostsFetching: false,
     };
 
+    _createPost(comment) {
+        const post = {
+            id:      getUniqueID(),
+            created: moment.utc(),
+            comment,
+        };
+
+        this.setState(({ posts }) => ({
+            posts: [ post, ...posts ],
+        }));
+    }
+
     render() {
-        const { posts, busy } = this.state;
+        const { posts, isPostsFetching } = this.state;
 
         const postsJSX = posts.map((post) => {
             return (
@@ -33,9 +53,9 @@ export default class Feed extends Component {
 
         return (
             <section className = { Styles.feed }>
-                <Spinner isSpinning = { busy } />
+                <Spinner isSpinning = { isPostsFetching } />
                 <StatusBar />
-                <Composer />
+                <Composer _createPost = { this._createPost } />
                 {postsJSX}
             </section>
         );
