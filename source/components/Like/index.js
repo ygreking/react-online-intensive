@@ -24,7 +24,7 @@ export default class Like extends Component {
     };
 
     state = {
-        showLikers: true,
+        showLikers: false,
     };
 
     _showLikers = () => {
