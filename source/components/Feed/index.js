@@ -120,7 +120,6 @@ export default class Feed extends Component {
     };
 
     _likePost = async (id) => {
-        const { currentUserFirstName, currentUserLastName } = this.props;
         this._setPostsFetchingState(true);
 
         const response = await fetch(`${api}/${id}`, {
@@ -158,6 +157,14 @@ export default class Feed extends Component {
         fromTo(composer, 1, { opacity: 0, rotationX: 50 }, { opacity: 1, rotationX: 0 });
     };
 
+    _animatePostmanEnter = (postman) => {
+        fromTo(postman, 1, { right: -400 }, { right: 30 });
+    };
+
+    _animatePostmanExit = (postman) => {
+        fromTo(postman, 1, { right: 30 }, { right: -400 });
+    };
+
     _hidePostman = () => {
         this.setState({
             showPostman: false,
@@ -191,10 +198,15 @@ export default class Feed extends Component {
                     onEnter = { this._animateComposerEnter }>
                     <Composer _createPost = { this._createPost } />
                 </Transition>
-                <Postman
-                    _hidePostman = { this._hidePostman }
+                <Transition
+                    appear
                     in = { showPostman }
-                />
+                    timeout = { 4000 }
+                    onEnter = { this._animatePostmanEnter }
+                    onEntered = { this._hidePostman }
+                    onExit = { this._animatePostmanExit }>
+                    <Postman />
+                </Transition>
                 {postsJSX}
             </section>
         );
