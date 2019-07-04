@@ -5,7 +5,9 @@ import { number } from 'prop-types';
 // Instruments
 import Styles from './styles.m.css';
 
-const Counter = ({ count }) => <section className = { Styles.counter }>Posts count: {count}</section>;
+const Counter = ({ count }) => {
+    return <section className = { Styles.counter }>Posts count: {count}</section>;
+};
 
 Counter.propTypes = {
     count: number.isRequired,

@@ -1,7 +1,5 @@
 // Core
 import React from 'react';
-import { Transition } from 'react-transition-group';
-import { fromTo } from 'gsap';
 
 // Instruments
 import Styles from './styles.m.css';

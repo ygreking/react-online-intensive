@@ -15,9 +15,7 @@ import Counter from 'components/Counter';
 
 // Instruments
 import Styles from './styles.m.css';
-import { getUniqueID, delay } from 'instruments';
 import { api, TOKEN, GROUP_ID } from 'config/api';
-import { async } from 'q';
 import { socket } from 'socket/init';
 
 @withProfile
@@ -141,7 +139,7 @@ export default class Feed extends Component {
     _removePost = async (id) => {
         this._setPostsFetchingState(true);
 
-        const response = await fetch(`${api}/${id}`, {
+        await fetch(`${api}/${id}`, {
             method:  'DELETE',
             headers: {
                 Authorization: TOKEN,

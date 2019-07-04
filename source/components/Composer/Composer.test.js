@@ -120,7 +120,12 @@ describe('composer component:', () => {
 
     test('_submitOnEnter should call _submitComment if Enter key was hit', () => {
         jest.clearAllMocks();
-        result.instance()._submitOnEnter({ key: 'Enter', preventDefault: () => {} });
+        result.instance()._submitOnEnter({
+            key:            'Enter',
+            preventDefault: () => {
+                return null;
+            },
+        });
         expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
     });
 

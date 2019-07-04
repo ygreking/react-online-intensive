@@ -6,7 +6,6 @@ import { func, string, number, array } from 'prop-types';
 // Components
 import { withProfile } from 'components/HOC/withProfile';
 import Like from 'components/Like';
-import { Consumer } from 'components/HOC/withProfile';
 
 // Instruments
 import Styles from './styles.m.css';
