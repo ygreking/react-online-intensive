@@ -37,6 +37,11 @@ describe('instruments:', () => {
         expect(getUniqueID(13)).toHaveLength(13);
     });
 
+    test('getUniqueID function should produce a 15-character string if length parameter not set ', () => {
+        expect(typeof getUniqueID()).toBe('string');
+        expect(getUniqueID()).toHaveLength(15);
+    });
+
     test('getFullApiUrl function should be a function', () => {
         expect(getFullApiUrl).toBeInstanceOf(Function);
     });
