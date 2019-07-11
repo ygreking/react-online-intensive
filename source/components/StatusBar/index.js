@@ -67,6 +67,11 @@ export default class StatusBar extends Component {
                         <span>{currentUserFirstName}</span>
                     </Link>
                     <Link to = '/feed'>Feed</Link>
+                    <Link
+                        to = '/'
+                        onClick = { this.props.doLogout }>
+                        Logout
+                    </Link>
                 </section>
             </Transition>
         );

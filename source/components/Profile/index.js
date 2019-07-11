@@ -8,7 +8,7 @@ import { withProfile } from 'components/HOC/withProfile';
 import Styles from './styles.m.css';
 
 @withProfile
-export default class Feed extends Component {
+export default class Profile extends Component {
     render() {
         const { currentUserFirstName, currentUserLastName, avatar } = this.props;
 
