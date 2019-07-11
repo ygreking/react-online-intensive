@@ -14,35 +14,13 @@ import { socket } from 'socket/init';
 
 @withProfile
 export default class StatusBar extends Component {
-    state = {
-        online: false,
-    };
-
-    componentDidMount() {
-        socket.on('connect', () => {
-            this.setState({
-                online: true,
-            });
-        });
-        socket.on('disconnect', () => {
-            this.setState({
-                online: false,
-            });
-        });
-    }
-
-    componentWillUnmount() {
-        socket.removeListener('connect');
-        socket.removeListener('disconnect');
-    }
-
     _animateStatusBarEnter = (statusBar) => {
         fromTo(statusBar, 1, { opacity: 0 }, { opacity: 1 });
     };
 
     render() {
         const { avatar, currentUserFirstName } = this.props;
-        const { online } = this.state;
+        const { online } = this.props;
 
         const statusStyle = cx(Styles.status, {
             [ Styles.online ]:  online,

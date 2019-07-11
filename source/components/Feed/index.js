@@ -14,7 +14,7 @@ import Counter from 'components/Counter';
 
 // Instruments
 import Styles from './styles.m.css';
-import { api, TOKEN, GROUP_ID } from 'config/api';
+import { api, TOKEN } from 'config/api';
 import { socket } from 'socket/init';
 
 @withProfile
@@ -28,8 +28,6 @@ export default class Feed extends Component {
     componentDidMount() {
         const { currentUserFirstName, currentUserLastName } = this.props;
         this._fetchPosts();
-
-        socket.emit('join', GROUP_ID);
 
         socket.on('create', (postJSON) => {
             const { data: createdPost, meta } = JSON.parse(postJSON);

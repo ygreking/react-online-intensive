@@ -13,6 +13,8 @@ import { Provider } from 'components/HOC/withProfile';
 
 // Instruments
 import avatar from 'theme/assets/lisa.png';
+import { GROUP_ID } from 'config/api';
+import { socket } from 'socket/init';
 
 @hot(module)
 export default class App extends Component {
@@ -21,6 +23,26 @@ export default class App extends Component {
         currentUserFirstName: 'Игорь',
         currentUserLastName:  'Харабет',
         isLoggedIn:           localStorage.getItem('isLoggedIn') === 'true',
+        online:               false,
+    };
+
+    componentDidMount = () => {
+        socket.emit('join', GROUP_ID);
+        socket.on('connect', () => {
+            this.setState({
+                online: true,
+            });
+        });
+        socket.on('disconnect', () => {
+            this.setState({
+                online: false,
+            });
+        });
+    };
+
+    componentWillUnmount = () => {
+        socket.removeListener('connect');
+        socket.removeListener('disconnect');
     };
 
     _doLogin = () => {
@@ -57,13 +79,15 @@ export default class App extends Component {
                             </Switch>
                         </>
                     ) : (
-                        <Switch>
-                            <Route
-                                path = '/login'
-                                render = { () => <Login doLogin = { this._doLogin } /> }
-                            />
-                            <Redirect to = '/login' />
-                        </Switch>
+                        <>
+                            <Switch>
+                                <Route
+                                    path = '/login'
+                                    render = { () => <Login doLogin = { this._doLogin } /> }
+                                />
+                                <Redirect to = '/login' />
+                            </Switch>
+                        </>
                     )}
                 </Provider>
             </Catcher>
